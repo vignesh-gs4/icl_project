@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .input {
+    @apply p-2 border border-gray-300 flex-1
+  }
+
+  .input:focus {
+    @apply outline outline-blue-500
+  }
+}
+
+@layer components {
+  .md-navbar {
+    @apply absolute z-10 flex-col bg-blue-500 top-10 p-2 left-0 right-0
+    items-center
+  }
+
+  .lesson-outlines {
+    @apply bg-white p-4 flex flex-col gap-5 my-5
+  }
+}
+
+
+nav ul a.active {
+  border-bottom: 2px solid #fff;
+}
+
+.lesson-outlines h2 {
+  display: flex;
+  justify-content: space-between;
+}
