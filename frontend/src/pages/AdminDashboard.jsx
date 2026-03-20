@@ -6,8 +6,7 @@ const AdminDashboard = () => {
   // Summary Stats Data
   const stats = [
     { id: 1, label: "Total Students", value: "128", icon: "👥", color: "text-blue-600", bg: "bg-blue-100" },
-    { id: 2, label: "Active Courses", value: "12", icon: "📚", color: "text-indigo-600", bg: "bg-indigo-100" },
-    { id: 3, label: "Pending Fees", value: "₹45,200", icon: "💰", color: "text-red-600", bg: "bg-red-100" }
+    { id: 2, label: "Active Courses", value: "12", icon: "📚", color: "text-indigo-600", bg: "bg-indigo-100" }
   ];
 
   return (
