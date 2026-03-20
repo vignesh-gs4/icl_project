@@ -4,7 +4,7 @@ import HomeSection from '../components/HomeSection';
 
 const Home = () => {
   return (
-   <main>
+   <main className='px-20'>
     <HeroSection />
     <HomeSection />
    </main>

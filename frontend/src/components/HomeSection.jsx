@@ -3,7 +3,7 @@ import React from 'react'
 const HomeSection = () => {
     return (
         <section>
-            <div className='flex gap-10 p-8 md:flex-row flex-col'>
+            <div className='flex gap-10 md:flex-row flex-col my-10'>
                 <div className='flex-1'>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores harum delectus voluptatibus culpa possimus labore consequatur vero enim eius cumque perspiciatis molestias voluptates exercitationem, inventore debitis, dolorem vitae mollitia, totam dicta placeat maxime laudantium. Iure tempora doloremque rem corporis, consequuntur sapiente. Provident corporis pariatur culpa iste possimus ipsa quod! Non reiciendis officia consequuntur atque iusto beatae veniam dolorum reprehenderit et, quaerat tempora doloribus. Aliquid quod sunt nemo, aliquam consectetur aut? Iusto voluptatibus dolorem excepturi fugiat nulla quia repellendus inventore repudiandae optio voluptatum enim asperiores necessitatibus incidunt sunt in officiis dignissimos cum, esse tempore sint cumque blanditiis ab. Est, corporis recusandae!
                 </div>

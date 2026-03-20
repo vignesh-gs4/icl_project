@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #6148bf
+}
+
+@layer base {}
+
 @layer utilities {
   .input {
     @apply p-2 border border-gray-300 flex-1
@@ -12,8 +18,7 @@
 
 @layer components {
   .md-navbar {
-    @apply absolute z-10 flex-col bg-blue-500 top-10 p-2 left-0 right-0
-    items-center
+    @apply absolute z-10 flex-col bg-blue-500 top-10 p-2 left-0 right-0 items-center
   }
 
   .lesson-outlines {
@@ -29,4 +34,8 @@ nav ul a.active {
 .lesson-outlines h2 {
   display: flex;
   justify-content: space-between;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

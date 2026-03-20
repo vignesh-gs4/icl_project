@@ -18,7 +18,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="bg-blue-600 text-white relative shadow-md">
+        <nav className="bg-primary text-white relative shadow-md">
             <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
 
                 {/* Logo Section */}
