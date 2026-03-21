@@ -4,7 +4,7 @@ const connectDB = async () => {
     const uri = process.env.MONGODB_URI;
 
     try {
-        await mongoose.connect(`uri/${icldb}`);
+        await mongoose.connect(`${uri}/icdb`);
         console.log("database connected");
     } catch(err) {
         console.log("error connecting with database : ", err.message);

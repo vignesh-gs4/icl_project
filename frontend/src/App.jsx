@@ -16,15 +16,18 @@ import AdminLogin from "./pages/AdminLogin";
 import CourseList from "./components/admin/CourseList";
 import StudentList from "./components/admin/StudentList";
 import AdminDashboard from "./pages/AdminDashboard";
+import api from "./api/api"
+import Alert from "./components/alert_component/Alert";
 
 function App() {
-  const { showAuthenticate } = useContext(AppContext);
+  const { showAuthenticate, showAlert } = useContext(AppContext);
   const location = useLocation();
   const isAdminPath = location.pathname.includes("admin");
   const isAdmin = true;
 
   return (
     <div className="min-h-screen">
+      { showAlert && <Alert /> }
       {showAuthenticate && <Authenticate />}
       {!isAdminPath && <header>
         <Navbar />
