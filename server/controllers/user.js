@@ -40,8 +40,9 @@ export const signup = async (req, res, next) => {
 
         res.cookie("jwt", refreshToken, {
             httpOnly: true,
-            sameSite: "strict",
-            maxAge: 60 * 1000
+            sameSite: process.env.NODE_ENV === "Production" ? "none" : "strict",
+            maxAge: 60 * 1000,
+            secure: process.env.NODE_ENV === "Production" ? true : false
         })
 
         return res
@@ -87,8 +88,9 @@ export const login = async (req, res, next) => {
 
         res.cookie("jwt", refreshToken, {
             httpOnly: true,
-            sameSite: "strict",
-            maxAge: 60 * 1000
+            sameSite: process.env.NODE_ENV === "Production" ? "none" : "strict",
+            maxAge: 60 * 1000,
+            secure: process.env.NODE_ENV === "Production" ? true : false      
         });
 
         return res

@@ -26,9 +26,9 @@ export const adminLogin = async (req, res, next) => {
 
         res.cookie("jwt", refreshToken, {
             httpOnly: true,
-            sameSite: "strict",
+            sameSite: process.env.NODE_ENV ? "none" : "strict",
             maxAge: 24 * 60 * 60 * 1000,
-            secure: false
+            secure: process.env.NODE_ENV === "Production"
         });
 
         return res
