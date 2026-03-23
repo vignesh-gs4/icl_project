@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 const corsOptions = {
-    origins : ["http://localhost:5173", "http://localhost:5500"],
+    origin : ["http://localhost:5173", "http://localhost:5500"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
@@ -27,7 +27,9 @@ app.use((req, res, next) => {
     next();
 })
 
-await connectDB();
+connectDB().catch(err => {
+    console.log("error connecting with Database : ", err.message);
+});
 
 app.use("/users/", userRoute);
 app.use("/course", courseRoute);
@@ -35,7 +37,7 @@ app.use("/admin", adminRoute);
 
 app.use((req, res, next) => {
     const error = new Error("Route not found" + req.url);
-    error.statuscode = 404;
+    error.statuScode = 404;
     next(error);
 });
 
