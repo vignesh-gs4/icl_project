@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast"
 import Navbar from "./components/Navbar";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -18,28 +19,31 @@ import StudentList from "./components/admin/StudentList";
 import AdminDashboard from "./pages/AdminDashboard";
 import api from "./api/api"
 import Alert from "./components/alert_component/Alert";
+import RequireAuth from "./components/RequireAuth";
 
 function App() {
-  const { showAuthenticate, showAlert } = useContext(AppContext);
+  const { showAuthenticate, showAlert, adminAuth } = useContext(AppContext);
   const location = useLocation();
   const isAdminPath = location.pathname.includes("admin");
-  const isAdmin = true;
 
   return (
     <div className="min-h-screen">
-      { showAlert && <Alert /> }
+      {showAlert && <Alert />}
       {showAuthenticate && <Authenticate />}
       {!isAdminPath && <header>
         <Navbar />
       </header>}
+      <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/course" element={<Course />} />
-        <Route path="/course-detail" element={<CourseDetail />} />
+        <Route element={<RequireAuth />}>
+          <Route path="/course-detail" element={<CourseDetail />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
-        <Route path="/admin" element={isAdmin ? <AdminLayout /> : <AdminLogin />}>
+        <Route path="/admin" element={adminAuth.email ? <AdminLayout /> : <AdminLogin />}>
           <Route index element={<AdminDashboard />} />
           <Route path="courses" element={<CourseList />} />
           <Route path="students" element={<StudentList />} />

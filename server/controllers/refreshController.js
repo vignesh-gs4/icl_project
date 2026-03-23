@@ -13,16 +13,18 @@ const refreshController = async (req, res, next) => {
 
         const decode = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
-        const storedToken = await redisClient.get(`refresh${decode.email}`);
+        const storedUser = await redisClient.get(`refresh${refreshToken}`);
 
-        if (!storedToken || refreshToken !== storedToken) {
+        if (!storedUser || decode.id !== JSON.parse(storedUser).id) {
             throw new AppError("Session expired", 403);
         }
+
+        console.log("decode : ", decode);
 
         const user = {
             id: decode.id,
             email: decode.email,
-            name: decode.name
+            name: decode?.name
         };
 
         const accessToken = generateAccessToken(user);

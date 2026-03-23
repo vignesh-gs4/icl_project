@@ -3,92 +3,113 @@ import { NavLink } from "react-router-dom";
 import AppContext from "../context/appContext";
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const { setShowAuthenticate, setAuthType, auth } = useContext(AppContext);
+  const [isOpen, setIsOpen] = useState(false);
+  const { setShowAuthenticate, setAuthType, auth } = useContext(AppContext);
 
-    // Toggle function
-    const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
 
-    // Close menu when a link is clicked
-    const closeMenu = () => setIsOpen(false);
+  const handleAuthToggle = (type) => {
+    closeMenu();
+    setAuthType(type);
+    setShowAuthenticate(true);
+  };
 
-    const handleAuthToggle = () => {
-        closeMenu();
-        setShowAuthenticate(prev => !prev);
-    }
+  const navLinkClass = ({ isActive }) =>
+    isActive
+      ? "text-lime-400 font-semibold"
+      : "hover:text-lime-400 transition";
 
-    return (
-        <nav className="bg-primary text-white relative shadow-md">
-            <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
+  return (
+    <nav className="sticky top-0 z-50 backdrop-blur bg-primary/90 text-white shadow-md">
+      <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
 
-                {/* Logo Section */}
-                <div className="text-xl font-bold tracking-wider">
-                    TITLE
-                </div>
+        {/* Logo */}
+        <div className="text-xl font-bold tracking-wide">
+          TITLE
+        </div>
 
-                {/* Desktop Menu (Hidden on mobile) */}
-                <ul className="hidden md:flex gap-8 font-medium items-center
-                bore">
-                    <li><NavLink to="/">Home</NavLink></li>
-                    <li><NavLink to="/course">Course</NavLink></li>
-                    <li><NavLink to="/about">About</NavLink></li>
-                    <li><NavLink to="/contact">Contact Us</NavLink></li>
-                    {
-                        auth.email ? (
-                            <li>
-                                <div className="bg-white size-10 rounded-[50%]"></div>
-                            </li>
-                        ): (
-                            <>
-                                <li className = "bg-green-500 p-2" onClick = {
-                                () => {
-                                    setShowAuthenticate(prev => !prev);
-                    setAuthType("login");
-                    }}>Login</li>
-                <li className="bg-yellow-500 p-2" onClick={() => {
-                    setShowAuthenticate(prev => !prev);
-                    setAuthType("signup");
-                }}>Signup</li>
-            </>
-            )
-                    }
-        </ul>
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex gap-8 items-center font-medium text-lg">
+          <li><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
+          <li><NavLink to="/course" className={navLinkClass}>Course</NavLink></li>
+          <li><NavLink to="/about" className={navLinkClass}>About</NavLink></li>
+          <li><NavLink to="/contact" className={navLinkClass}>Contact</NavLink></li>
 
-            {/* Mobile Hamburger Button */ }
-    <div className="md:hidden cursor-pointer p-2" onClick={toggleMenu}>
-        <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-            {isOpen ? (
-                /* "X" Icon when menu is open */
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            ) : (
-                /* Hamburger Icon when menu is closed */
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-            )}
-        </svg>
-    </div>
-        </div >
-
-    {/* Mobile Menu Overlay (Animated with Tailwind) */ }
-    < div className = {`md:hidden absolute top-16 left-0 w-full bg-blue-500 transition-all duration-300 ease-in-out z-50 ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}>
-        <ul className="flex flex-col items-center gap-6 py-8 shadow-inner">
-            <li onClick={closeMenu}><NavLink to="/">Home</NavLink></li>
-            <li onClick={closeMenu}><NavLink to="/course">Course</NavLink></li>
-            <li onClick={closeMenu}><NavLink to="/about">About</NavLink></li>
-            <li onClick={closeMenu}><NavLink to="/contact">Contact Us</NavLink></li>
-            <li onClick={() => {
-                setAuthType("login");
-                handleAuthToggle();
-            }}>Login</li>
-            <li onClick={() => {
-                setAuthType("signup");
-                handleAuthToggle();
-            }}>
-                Signup
+          {auth?.email ? (
+            <li>
+              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-lime-400 to-green-500 flex items-center justify-center font-bold shadow-md">
+                {auth.email[0].toUpperCase()}
+              </div>
             </li>
+          ) : (
+            <div className="flex gap-3">
+              <button
+                onClick={() => handleAuthToggle("login")}
+                className="px-4 py-2 rounded-lg bg-white text-primary font-semibold hover:bg-gray-200 transition"
+              >
+                Login
+              </button>
+              <button
+                onClick={() => handleAuthToggle("signup")}
+                className="px-4 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-600 transition font-semibold"
+              >
+                Signup
+              </button>
+            </div>
+          )}
         </ul>
-    </div >
-        </nav >
-    );
-}
+
+        {/* Mobile Toggle */}
+        <div className="md:hidden cursor-pointer p-2" onClick={toggleMenu}>
+          <svg
+            className="w-7 h-7"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+          >
+            {isOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+            )}
+          </svg>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={`md:hidden absolute top-16 left-0 w-full bg-primary/95 backdrop-blur transition-all duration-300 ${
+          isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-5"
+        }`}
+      >
+        <ul className="flex flex-col items-center gap-6 py-8 text-lg">
+          <li onClick={closeMenu}><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
+          <li onClick={closeMenu}><NavLink to="/course" className={navLinkClass}>Course</NavLink></li>
+          <li onClick={closeMenu}><NavLink to="/about" className={navLinkClass}>About</NavLink></li>
+          <li onClick={closeMenu}><NavLink to="/contact" className={navLinkClass}>Contact</NavLink></li>
+
+          {!auth?.email && (
+            <div className="flex flex-col gap-3 w-40">
+              <button
+                onClick={() => handleAuthToggle("login")}
+                className="bg-white text-primary py-2 rounded-lg font-semibold"
+              >
+                Login
+              </button>
+              <button
+                onClick={() => handleAuthToggle("signup")}
+                className="bg-yellow-500 py-2 rounded-lg font-semibold"
+              >
+                Signup
+              </button>
+            </div>
+          )}
+        </ul>
+      </div>
+    </nav>
+  );
+};
 
 export default Navbar;

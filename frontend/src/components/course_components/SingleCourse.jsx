@@ -1,7 +1,17 @@
 import { useNavigate } from "react-router-dom";
+import useAppContext from "../../hooks/useAppContext";
+import toast from "react-hot-toast";
 
 const SingleCourse = () => {
     const navigate = useNavigate();
+    const { auth } = useAppContext();
+
+    const checkAuth = () => {
+        if(!auth.email) {
+          return  toast.error("Please Login or Signup ot View the Page");
+        }
+        navigate("/course-detail");
+    }
 
     return (
            <div className="p-4 bg-white border border-gray-200 hover:-translate-y-1 transition duration-300 rounded-lg shadow shadow-black/10 max-w-80">
@@ -12,11 +22,7 @@ const SingleCourse = () => {
             <p className="text-zinc-400 text-sm/6 mt-2 ml-2 mb-2">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore..
             </p>
-            <button onClick={
-                () => {
-                    navigate("/course-detail", { state: { courseName: "course" } })
-                }
-            } type="button" className="bg-indigo-600 hover:bg-indigo-700 transition cursor-pointer mt-4 mb-3 ml-2 px-6 py-2 font-medium rounded-md text-white text-sm">
+            <button onClick={checkAuth} type="button" className="bg-indigo-600 hover:bg-indigo-700 transition cursor-pointer mt-4 mb-3 ml-2 px-6 py-2 font-medium rounded-md text-white text-sm">
                 Learn More
             </button>
         </div>

@@ -1,12 +1,36 @@
 import { useState } from 'react'
+import api from "../api/api"
+import useAppContext from "../hooks/useAppContext.js";
+import toast from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { setAdminAuth } = useAppContext();
+    const navigate = useNavigate();
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        try {
+            const { data } = await api.post("/admin", {
+                email,
+                password
+            });
+            if(data.success) {
+                toast.success(data.message);
+                setAdminAuth({ accessToken: data.accessToken, email });
+                navigate("/admin");
+            }
+        } catch(err) {
+            toast.error(err?.response?.data?.message);
+            console.log("error admin login : ", err.message);
+        }
+    };
 
     return (
         <div className="min-h-screen flex justify-center items-center">
-            <form className="flex flex-col gap-4 m-auto items-center p-8 py-12 w-80 sm:w-[352px] text-gray-500 rounded-lg shadow-xl border border-gray-200 bg-white">
+            <form className="flex flex-col gap-4 m-auto items-center p-8 py-12 w-80 sm:w-[352px] text-gray-500 rounded-lg shadow-xl border border-gray-200 bg-white" onSubmit={submitHandler}>
                 <p className="text-2xl font-medium m-auto">
                     <span className="text-indigo-500">Admin</span> Login
                 </p>

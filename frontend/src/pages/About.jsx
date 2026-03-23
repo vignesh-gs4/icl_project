@@ -1,56 +1,94 @@
-import React from 'react'
+import React from "react";
+
+const features = [
+  {
+    title: "Lightning-Fast Performance",
+    desc: "Optimized for speed with minimal load times and smooth user experience.",
+    icon: "⚡",
+  },
+  {
+    title: "Beautiful UI Components",
+    desc: "Modern, pixel-perfect components designed for real-world apps.",
+    icon: "🎨",
+  },
+  {
+    title: "Easy Integration",
+    desc: "Plug-and-play support for React, Next.js, and Tailwind CSS.",
+    icon: "🧩",
+  },
+];
 
 const About = () => {
-    return (
-        <section>
-            <h1 className="text-3xl font-semibold text-center mx-auto">About our apps</h1>
-            <p className="text-sm text-slate-500 text-center mt-2 max-w-md mx-auto">
-                A visual collection of our most recent works - each piece crafted with intention, emotion and style.
-            </p>
-            <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-8 px-4 md:px-0 py-10">
-                <img className="max-w-sm w-full rounded-xl h-auto"
-                    src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?q=80&w=830&h=844&auto=format&fit=crop"
-                    alt="" />
-                <div>
-                    <h1 className="text-3xl font-semibold">Our Latest features</h1>
-                    <p className="text-sm text-slate-500 mt-2">
-                        Ship Beautiful Frontends Without the Overhead — Customizable, Scalable and Developer-Friendly UI
-                        Components.
-                    </p>
+  return (
+    <section className="py-16 bg-gradient-to-b from-white to-slate-50">
+      
+      {/* Header */}
+      <div className="text-center max-w-2xl mx-auto px-4">
+        <h1 className="text-4xl font-bold text-slate-800">
+          About Our Platform
+        </h1>
+        <p className="text-slate-500 mt-4">
+          We craft modern, scalable, and beautiful UI experiences that help
+          developers build faster and better products.
+        </p>
+      </div>
 
-                    <div className="flex flex-col gap-10 mt-6">
-                        <div className="flex items-center gap-4">
-                            <div className="size-9 p-2 bg-indigo-50 border border-indigo-200 rounded">
-                                <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/aboutSection/flashEmoji.png" alt="" />
-                            </div>
-                            <div>
-                                <h3 className="text-base font-medium text-slate-600">Lightning-Fast Performance</h3>
-                                <p className="text-sm text-slate-500">Built with speed — minimal load times and optimized.</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <div className="size-9 p-2 bg-indigo-50 border border-indigo-200 rounded">
-                                <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/aboutSection/colorsEmoji.png" alt="" />
-                            </div>
-                            <div>
-                                <h3 className="text-base font-medium text-slate-600">Beautifully Designed Components</h3>
-                                <p className="text-sm text-slate-500">Modern, pixel-perfect UI components ready for any project.</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <div className="size-9 p-2 bg-indigo-50 border border-indigo-200 rounded">
-                                <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/aboutSection/puzzelEmoji.png" alt="" />
-                            </div>
-                            <div>
-                                <h3 className="text-base font-medium text-slate-600">Plug-and-Play Integration</h3>
-                                <p className="text-sm text-slate-500">Simple setup with support for React, Next.js and Tailwind css.</p>
-                            </div>
-                        </div>
-                    </div>
+      {/* Content */}
+      <div className="max-w-6xl mx-auto mt-14 px-4 grid md:grid-cols-2 gap-12 items-center">
+        
+        {/* Image */}
+        <div className="relative">
+          <img
+            src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?q=80&w=830&auto=format&fit=crop"
+            alt="About"
+            className="rounded-2xl shadow-lg w-full object-cover"
+          />
+
+          {/* Decorative blur */}
+          <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-indigo-200 rounded-full blur-3xl opacity-30"></div>
+        </div>
+
+        {/* Text Content */}
+        <div>
+          <h2 className="text-3xl font-semibold text-slate-800">
+            Why Choose Us?
+          </h2>
+          <p className="text-slate-500 mt-3">
+            Build stunning frontends without the hassle. Our system is designed
+            to help developers move faster while maintaining high-quality UI.
+          </p>
+
+          {/* Features */}
+          <div className="mt-8 space-y-6">
+            {features.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-4 p-4 rounded-xl hover:bg-white hover:shadow-md transition duration-300"
+              >
+                <div className="text-xl bg-indigo-100 p-3 rounded-lg">
+                  {item.icon}
                 </div>
-            </div>
-        </section>
-    );
-}
 
-export default About
+                <div>
+                  <h3 className="font-semibold text-slate-700">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-slate-500 mt-1">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <button className="mt-8 px-6 py-3 bg-primary text-white rounded-lg shadow hover:bg-indigo-700 transition">
+            Explore More
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default About;

@@ -5,8 +5,7 @@ const AppContextProvider = ({ children }) => {
     const [showAuthenticate, setShowAuthenticate] = useState(false);
     const [authType, setAuthType] = useState("login");
     const [auth, setAuth] = useState({});
-    const [showAlert, setShowAlert] = useState(false);
-    const [successType, setSuccessType] = useState(null);
+    const [adminAuth, setAdminAuth] = useState({});
 
     const contextObj = {
         authType,
@@ -14,8 +13,7 @@ const AppContextProvider = ({ children }) => {
         showAuthenticate,
         setShowAuthenticate,
         auth, setAuth,
-        showAlert, setShowAlert,
-        successType, setSuccessType
+        adminAuth, setAdminAuth
     }
 
     return (

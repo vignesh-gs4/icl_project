@@ -12,7 +12,7 @@ export function generateRefreshToken(user) {
         expiresIn: '2m'
     });
 
-    redisClient.set(`refresh${user.email}`, refreshToken, {
+    redisClient.set(`refresh${refreshToken}`, JSON.stringify(user), {
         EX: 2 * 60
     });
 

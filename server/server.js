@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 import userRoute from "./routes/userRoute.js";
 import courseRoute from "./routes/courseRoute.js";
+import adminRoute from "./routes/adminRoute.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -30,6 +31,7 @@ await connectDB();
 
 app.use("/users/", userRoute);
 app.use("/course", courseRoute);
+app.use("/admin", adminRoute);
 
 app.use((req, res, next) => {
     const error = new Error("Route not found" + req.url);

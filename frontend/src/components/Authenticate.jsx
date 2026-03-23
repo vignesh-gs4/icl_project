@@ -1,16 +1,15 @@
 import useAppContext from "../hooks/useAppContext";
 import api from "../api/api.js";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Authenticate = () => {
   const {
     setShowAuthenticate,
     authType,
     setAuthType,
-    setAuth,
-    setShowAlert,
-    setSuccessType
+    setAuth
   } = useAppContext();
 
   const navigate = useNavigate();
@@ -19,19 +18,6 @@ const Authenticate = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    const modelSet = () => {
-      setShowAlert(false);
-    }
-
-    const id = setTimeout(modelSet, 3000);
-
-    return () => {
-      clearTimeout(id);
-    }
-
-  });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -39,26 +25,22 @@ const Authenticate = () => {
       const { data } = await api.post("/users/" + authType, {
         email, name, password
       });
-      navigate("/");
-      console.log("data : ", data);
-      if(data.success) {
-        setShowAlert("login successfully");
-        setSuccessType(true);
+      if (data.success) {
+        toast.success(data.message)
+        setAuth({ email, accessToken: data.accessToken })
         setShowAuthenticate(false);
-        // setShowAlert(false);
+        navigate("/");
       }
-      setAuth({ email, accessToken: data.accessToken })
     } catch (err) {
       console.log(err?.response?.message);
-      setShowAlert(err?.response?.data?.message);
-      setSuccessType(false);
+      toast.error(err?.response?.data.message);
     }
   };
 
   return (
     <div
       onClick={() => setShowAuthenticate(false)}
-      className="fixed z-30 inset-0 flex
+      className="fixed z-100 inset-0 flex
       justify-center items-center bg-black/50"
     >
       <form onClick={(e) => e.stopPropagation()}
@@ -101,7 +83,7 @@ const Authenticate = () => {
           id="email"
           className="w-full border mt-1 bg-indigo-500/5 mb-7 border-gray-500/10
           outline-none rounded py-2.5 px-3"
-          type="text"
+          type="password"
           placeholder="Password"
           required
           onChange={e => setPassword(e.target.value)}
@@ -113,7 +95,7 @@ const Authenticate = () => {
          transition-all active:scale-95 py-2.5 rounded text-white
          font-medium"
         >
-          { authType === "login" ? "Login" : "Signup" }
+          {authType === "login" ? "Login" : "Signup"}
         </button>
 
         <p className="text-center mt-4">
