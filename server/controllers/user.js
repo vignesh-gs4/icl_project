@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import AppError from "../utils/AppError.js";
 import emailValidate from "../utils/emailValidate.js";
 import { generateAccessToken, generateRefreshToken } from "../utils/tokenGenerator.js";
-import redisClient from "../config/redisConfig.js";
 
 export const signup = async (req, res, next) => {
     try {
