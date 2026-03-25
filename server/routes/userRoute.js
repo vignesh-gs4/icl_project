@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { signup, login } from "../controllers/user.js";
+import signup from "../controllers/userController/signup.js"
+import login from "../controllers/userController/login.js"
 import refreshController from "../controllers/refreshController.js";
 import logout from "../controllers/logoutController.js"
 

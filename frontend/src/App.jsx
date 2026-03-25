@@ -13,18 +13,24 @@ import NotFound from "./components/NotFound";
 import CourseDetail from "./pages/CourseDetail";
 import AdminLayout from "./layout/AdminLayout";
 import { useLocation } from "react-router-dom";
-import AdminLogin from "./pages/AdminLogin";
+import AdminLogin from "./pages/admin/AdminLogin";
 import CourseList from "./components/admin/CourseList";
 import StudentList from "./components/admin/StudentList";
-import AdminDashboard from "./pages/AdminDashboard";
-import api from "./api/api"
-import Alert from "./components/alert_component/Alert";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+// import api from "./api/api" 
 import RequireAuth from "./components/RequireAuth";
+import Unauthorized from "./components/Unauthorized";
 
 function App() {
   const { showAuthenticate, showAlert, adminAuth } = useContext(AppContext);
   const location = useLocation();
   const isAdminPath = location.pathname.includes("admin");
+  const ROLE_LIST = {
+    "Admin": import.meta.env.VITE_ADMIN,
+    "User": import.meta.env.VITE_USER
+  };
+
+  console.log("role list :", ROLE_LIST);
 
   return (
     <div className="min-h-screen">
@@ -39,7 +45,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/course" element={<Course />} />
-        <Route element={<RequireAuth />}>
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route element={<RequireAuth allowedRoles={[ROLE_LIST.User]} />}>
           <Route path="/course-detail" element={<CourseDetail />} />
         </Route>
         <Route path="*" element={<NotFound />} />

@@ -24,10 +24,16 @@ const Authenticate = () => {
 
       const { data } = await api.post("/users/" + authType, {
         email, name, password
+      }, {
+        withCredentials: true
       });
       if (data.success) {
         toast.success(data.message)
-        setAuth({ email, accessToken: data.accessToken })
+        setAuth({
+          email,
+          accessToken: data.accessToken,
+          roles: data.roles
+        })
         setShowAuthenticate(false);
         navigate("/");
       }

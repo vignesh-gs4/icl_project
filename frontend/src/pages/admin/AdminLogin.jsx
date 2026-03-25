@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import api from "../api/api"
-import useAppContext from "../hooks/useAppContext.js";
+import api from "../../api/api"
+import useAppContext from "../../hooks/useAppContext.js";
 import toast from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
 

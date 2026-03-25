@@ -1,3 +1,0 @@
-export const getCourses = async (req, res) => {
-    
-}

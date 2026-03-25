@@ -1,7 +1,7 @@
 import AppError from "../utils/AppError.js";
 import jwt from "jsonwebtoken";
 
-const verifyJWT = async (req, res, next) => {
+const verifyJWT = (req, res, next) => {
     const authorization = req.headers.authorization || req.headers.Authorization;
 
     if(!authorization || !authorization?.startsWith("Bearer ")) {
@@ -15,10 +15,12 @@ const verifyJWT = async (req, res, next) => {
     }
     
     try {
-        const decode = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        const decode = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        console.log("decode : ", decode.roles);
+        req.roles = decode.roles;
         next();
     } catch(err) {
-        if(err.name === "TokenExpiredErrro") {
+        if(err.name === "TokenExpiredError") {
             next(new AppError("access token expired", 403));
         }
         next(new AppError("invalid access token", 401));

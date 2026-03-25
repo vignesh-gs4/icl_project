@@ -1,5 +1,5 @@
-import AppError from "../utils/AppError.js";
-import { generateAccessToken, generateRefreshToken } from "../utils/tokenGenerator.js";
+import AppError from "../../utils/AppError.js";
+import { generateAccessToken, generateRefreshToken } from "../../utils/tokenGenerator.js";
 import bcrypt from "bcrypt"
 
 export const adminLogin = async (req, res, next) => {
@@ -19,7 +19,7 @@ export const adminLogin = async (req, res, next) => {
             throw new AppError("Invalid Credentials", 401);
         }
 
-        const payload = { email, admin: true };
+        const payload = { email, admin: true, roles: [process.env.ADMIN] };
 
         const accessToken = generateAccessToken(payload);
         const refreshToken = generateRefreshToken(payload);
@@ -33,7 +33,7 @@ export const adminLogin = async (req, res, next) => {
 
         return res
             .status(200)
-            .json({ success: true, message: "You are Logged In" });
+            .json({ success: true, message: "You are Logged In", accessToken });
 
     } catch (err) {
         next(err);
