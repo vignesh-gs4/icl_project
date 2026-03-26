@@ -1,6 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 const CourseDetailComp = () => {
+  const { courseId } = useParams();
+
+  console.log(courseId);
+
+  useEffect(() => {
+    
+  }, []);
+
   return (
     <section className='px-4 lg:px-24 my-10'>
       <h2 className='font-bold text-gray-500'>COURSE OUTLINE</h2>

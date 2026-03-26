@@ -6,7 +6,7 @@ import { generateAccessToken } from "../utils/tokenGenerator.js";
 const refreshController = async (req, res, next) => {
     try {
         const refreshToken = req.cookies?.jwt;
-
+        console.log("cookies", req.cookies.jwt);
         if (!refreshToken) {
             throw new AppError("refresh token missing", 401);
         }
@@ -24,14 +24,15 @@ const refreshController = async (req, res, next) => {
         const user = {
             id: decode.id,
             email: decode.email,
-            name: decode?.name
+            name: decode?.name,
+            roles: decode?.roles
         };
 
         const accessToken = generateAccessToken(user);
 
         return res
             .status(200)
-            .json({ accessToken });
+            .json({ accessToken, roles: user.roles });
 
     } catch (err) {
         if (err.name === "TokenExpiredError") {

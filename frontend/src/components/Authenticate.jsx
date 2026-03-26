@@ -22,7 +22,7 @@ const Authenticate = () => {
     e.preventDefault();
     try {
 
-      const { data } = await api.post("/users/" + authType, {
+      const { data } = await api.post("/auth/" + authType, {
         email, name, password
       }, {
         withCredentials: true

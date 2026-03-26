@@ -36,10 +36,10 @@ const Navbar = () => {
           <li><NavLink to="/about" className={navLinkClass}>About</NavLink></li>
           <li><NavLink to="/contact" className={navLinkClass}>Contact</NavLink></li>
 
-          {auth?.email ? (
+          {auth?.accessToken ? (
             <li>
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-lime-400 to-green-500 flex items-center justify-center font-bold shadow-md">
-                {auth.email[0].toUpperCase()}
+              <div className="px-4 py-2 rounded-lg text-white font-semibold bg-red-500">
+                Logout
               </div>
             </li>
           ) : (
@@ -80,9 +80,8 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden absolute top-16 left-0 w-full bg-primary/95 backdrop-blur transition-all duration-300 ${
-          isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-5"
-        }`}
+        className={`md:hidden absolute top-16 left-0 w-full bg-primary/95 backdrop-blur transition-all duration-300 ${isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-5"
+          }`}
       >
         <ul className="flex flex-col items-center gap-6 py-8 text-lg">
           <li onClick={closeMenu}><NavLink to="/" className={navLinkClass}>Home</NavLink></li>
@@ -90,7 +89,7 @@ const Navbar = () => {
           <li onClick={closeMenu}><NavLink to="/about" className={navLinkClass}>About</NavLink></li>
           <li onClick={closeMenu}><NavLink to="/contact" className={navLinkClass}>Contact</NavLink></li>
 
-          {!auth?.email && (
+          {!auth?.accessToken ? (
             <div className="flex flex-col gap-3 w-40">
               <button
                 onClick={() => handleAuthToggle("login")}
@@ -103,6 +102,14 @@ const Navbar = () => {
                 className="bg-yellow-500 py-2 rounded-lg font-semibold"
               >
                 Signup
+              </button>
+            </div>
+          ) : (
+            <div>
+              <button
+                className="text-white bg-red-500 p-2 rounded-lg font-semibold"
+              >
+                Logout
               </button>
             </div>
           )}

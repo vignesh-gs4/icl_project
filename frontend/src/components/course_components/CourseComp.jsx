@@ -1,14 +1,29 @@
+import { useEffect, useState } from "react";
 import SingleCourse from "./SingleCourse";
+import api from "../../api/api";
 
 const CourseComp = () => {
-    const courses = [...Array(10).keys()];
+    const [courses, setCourses] = useState([]);
+
+    useEffect(() => {
+        const getCourses = async () => {
+            try {
+                const { data } = await api.get("/courses");
+                setCourses(data);
+            } catch (err) {
+                console.log("error : ", err.message);
+            }
+        }
+
+        getCourses();
+    }, []);
 
     return (
         <section className="max-w-7xl mx-auto px-4 py-12">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 {courses.map(course => (
-                    <div key={course} className="flex justify-center">
-                        <SingleCourse />
+                    <div key={course._id} className="flex justify-center">
+                        <SingleCourse title={course.title} description={course.description} courseId={course._id} />
                     </div>
                 ))}
             </div>

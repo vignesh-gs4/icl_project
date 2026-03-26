@@ -20,9 +20,10 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 // import api from "./api/api" 
 import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./components/Unauthorized";
+import PersistLogin from "./components/PersistLogin"
 
 function App() {
-  const { showAuthenticate, showAlert, adminAuth } = useContext(AppContext);
+  const { showAuthenticate, showAlert } = useContext(AppContext);
   const location = useLocation();
   const isAdminPath = location.pathname.includes("admin");
   const ROLE_LIST = {
@@ -41,20 +42,22 @@ function App() {
       </header>}
       <Toaster />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/course" element={<Course />} />
-        <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route element={<RequireAuth allowedRoles={[ROLE_LIST.User]} />}>
-          <Route path="/course-detail" element={<CourseDetail />} />
+        <Route element={<PersistLogin />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/course" element={<Course />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route element={<RequireAuth allowedRoles={[ROLE_LIST.User]} />}>
+            <Route path="/course-detail/:courseId" element={<CourseDetail />} />
+          </Route>
+          <Route path="/admin" element={<RequireAuth allowedRoles={[ROLE_LIST.Admin]} />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="courses" element={<CourseList />} />
+            <Route path="students" element={<StudentList />} />
+          </Route>
         </Route>
         <Route path="*" element={<NotFound />} />
-        <Route path="/admin" element={adminAuth.email ? <AdminLayout /> : <AdminLogin />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="courses" element={<CourseList />} />
-          <Route path="students" element={<StudentList />} />
-        </Route>
       </Routes>
       {!isAdminPath && <Footer />}
     </div>

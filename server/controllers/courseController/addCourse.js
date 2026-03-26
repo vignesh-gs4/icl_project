@@ -8,14 +8,17 @@ const addCourse = async (req, res, next) => {
             courseName,
             description,
             fees,
-            syllabus
+            syllabus,
+            courseImageUrl
         } = req.body;
+
+        console.log(courseImageUrl);
 
         if (!courseName || !description || !fees || !syllabus) {
             throw new AppError("All provided field for course details is required", 400);
         }
 
-        const course = await Course.create({ courseName, description });
+        const course = await Course.create({ courseName, description, courseImageUrl });
         const lesson = await Lesson.create({
             courseId: course._id,
             fees,

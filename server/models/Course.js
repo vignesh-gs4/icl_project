@@ -8,6 +8,10 @@ const courseSchema = new mongoose.Schema({
     description: {
         type: String, 
         required: true
+    },
+    courseImageUrl: {
+        type: String,
+        required: true
     }
 }, { timestamps: true });
 

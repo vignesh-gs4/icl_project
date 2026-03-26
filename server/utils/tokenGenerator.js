@@ -9,11 +9,11 @@ export function generateAccessToken(user) {
 
 export function generateRefreshToken(user) {
     const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {
-        expiresIn: '2m'
+        expiresIn: '7d'
     });
 
     redisClient.set(`refresh${refreshToken}`, JSON.stringify(user), {
-        EX: 2 * 60
+        EX: 7 * 24 * 60 * 60
     });
 
     return refreshToken;

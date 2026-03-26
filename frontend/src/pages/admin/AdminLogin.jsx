@@ -20,7 +20,7 @@ const AdminLogin = () => {
             if(data.success) {
                 toast.success(data.message);
                 setAdminAuth({ accessToken: data.accessToken, email });
-                navigate("/admin");
+                navigate("/admin", { replace: true });
             }
         } catch(err) {
             toast.error(err?.response?.data?.message);

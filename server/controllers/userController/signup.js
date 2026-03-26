@@ -24,9 +24,8 @@ const signup = async (req, res, next) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-
         const newUser = await User.create({
-            name, email, password: hashedPassword, roles: [process.env.USER]
+            name, email, password: hashedPassword, roles: [process.env.User]
         });
 
         const user = {
@@ -42,7 +41,7 @@ const signup = async (req, res, next) => {
         res.cookie("jwt", refreshToken, {
             httpOnly: true,
             sameSite: process.env.NODE_ENV === "Production" ? "none" : "strict",
-            maxAge: 60 * 1000,
+            maxAge: 7 * 24 * 60 * 60 * 1000,
             secure: process.env.NODE_ENV === "Production" ? true : false
         })
 

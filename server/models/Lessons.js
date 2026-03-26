@@ -10,15 +10,10 @@ const lessonsSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    syllabus: [{
-        title: {
-            subtopics: [
-                {
-                    title: String
-                }
-            ]
-        }
-    }]
+    duration: {
+        type: String
+    },
+    syllabus: []
 }, { timestamps: true });
 
 export const Lesson = mongoose.model("Lesson", lessonsSchema);

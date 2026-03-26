@@ -1,10 +1,25 @@
 import { Router } from "express";
 import verifyJWT from "../middlewares/verifyJWT.js";
+import addCourse from "../controllers/courseController/addCourse.js"
+import { getCourse, getCourseInfo } from "../controllers/courseController/getCourse.js"
+import ROLE_LIST from "../config/roleConfig.js";
+import verifyRole from "../middlewares/verifyRole.js"
 
 const route = Router();
 
-route.get("/", verifyJWT, (req, res) => {
-    return res.json({ message: "course route accessed" });
-});
+route.get("/", getCourse);
+route.get(
+    "/:courseId",
+    verifyJWT,
+    verifyRole(ROLE_LIST.Admin, ROLE_LIST.User),
+    getCourseInfo
+);
+
+route.post(
+    "/add-course",
+    verifyJWT,
+    verifyRole(ROLE_LIST.Admin),
+    addCourse
+);
 
 export default route;
