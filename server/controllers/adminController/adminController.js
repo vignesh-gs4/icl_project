@@ -33,7 +33,7 @@ export const adminLogin = async (req, res, next) => {
 
         return res
             .status(200)
-            .json({ success: true, message: "You are Logged In", accessToken });
+            .json({ success: true, message: "You are Logged In", accessToken, roles: [process.env.ADMIN] });
 
     } catch (err) {
         next(err);

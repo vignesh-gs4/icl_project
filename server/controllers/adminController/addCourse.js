@@ -1,4 +1,4 @@
-import { Course } from "../../models/Course.js";
+import { Course } from "../../models/Course.js"
 import { Lesson } from "../../models/Lessons.js";
 import AppError from "../../utils/AppError.js"
 

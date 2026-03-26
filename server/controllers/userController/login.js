@@ -12,6 +12,10 @@ const login = async (req, res, next) => {
             throw new AppError("Email and Password is Empty", 400);
         }
 
+        if(!emailValidate) {
+            throw new AppError("Please give a valid Email", 400);
+        }
+
         const foundUser = await User.findOne({ email });
 
         if (!foundUser) {

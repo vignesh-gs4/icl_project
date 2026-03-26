@@ -16,7 +16,6 @@ const corsOptions = {
         "http://localhost:5173",
         "https://icl-project.vercel.app"
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 };
 
