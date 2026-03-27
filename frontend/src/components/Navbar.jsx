@@ -38,7 +38,7 @@ const Navbar = () => {
 
           {auth?.accessToken ? (
             <li>
-              <div className="px-4 py-2 rounded-lg text-white font-semibold bg-red-500">
+              <div className="px-1 rounded-lg text-white font-semibold bg-red-500">
                 Logout
               </div>
             </li>
@@ -107,7 +107,7 @@ const Navbar = () => {
           ) : (
             <div>
               <button
-                className="text-white bg-red-500 p-2 rounded-lg font-semibold"
+                className="text-white p-[5px] bg-red-500 rounded-lg font-semibold"
               >
                 Logout
               </button>

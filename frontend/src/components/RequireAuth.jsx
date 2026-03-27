@@ -1,24 +1,46 @@
-import React from 'react'
-import { Outlet, Navigate, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { Outlet, Navigate } from 'react-router-dom';
 import useAppContext from '../hooks/useAppContext'
-import toast from "react-hot-toast"
+import useRefreshToken from '../hooks/useRefreshToken';
+import { useState } from 'react';
 
 const RequireAuth = ({ allowedRoles }) => {
     const { auth } = useAppContext();
-    const location = useLocation();
+    const refresh = useRefreshToken();
+    const [isLoading, setIsLoading] = useState(true);
 
-    const authRequire = () => {
-        toast.error("Please Login or Signup to View the Course Details");
-        console.log("require auth");
-        return <Navigate to="/" state={{from: location}} replace />;
-    }
+    console.log("Before", auth);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const verifyRefreshToken = async () => {
+            try {
+                await refresh();
+            } catch (err) {
+                console.log("while persist auth : ", err.message);
+            } finally {
+                isMounted && setIsLoading(false);
+            }
+        };
+
+        !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
+
+        return () => {
+            isMounted = false;
+        }
+
+    }, [refresh, auth?.accessToken]);
+
+    console.log("after : ", auth.roles?.find);
+    console.log(allowedRoles);
 
     return (
-        auth?.roles?.find(role => allowedRoles.includes(role)) ? <Outlet />
-           : auth?.email
-           ? <Navigate to="/unauthorized" />
-           : authRequire()
-  )
+       isLoading ? <p>Page is loading</p> : auth?.roles?.find(role => allowedRoles.includes(role)) ? <Outlet />
+            : auth?.accessToken
+                ? <Navigate to="/unauthorized" />
+                : <Navigate to="/" />
+    )
 }
 
 export default RequireAuth

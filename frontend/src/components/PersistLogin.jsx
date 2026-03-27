@@ -6,7 +6,7 @@ import useAppContext from "../hooks/useAppContext";
 const PersistLogin = () => {
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
-    const { auth } = useAppContext()
+    const { auth } = useAppContext();
 
     useEffect(() => {
         let isMounted = true;
@@ -14,7 +14,7 @@ const PersistLogin = () => {
         const verifyRefreshToken = async () => {
             try {
                 await refresh();
-            } catch(err) {
+            } catch (err) {
                 console.log("while persist auth : ", err.message);
             } finally {
                 isMounted && setIsLoading(false);
@@ -29,10 +29,30 @@ const PersistLogin = () => {
 
     }, [refresh, auth?.accessToken]);
 
-    console.log("auth : ", auth);
+    // console.log("auth : ", auth);
 
 
-    return isLoading ? <p>Page is Loading...</p> : <Outlet />
+    return isLoading ? (
+        <div className="animate-pulse space-y-4 h-screen">
+
+            {/* Title */}
+            <div className="h-6 bg-gray-200 rounded w-1/3"></div>
+
+            {/* Content lines */}
+            <div className="h-4 bg-gray-200 rounded w-full"></div>
+            <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+            <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+
+            {/* Big block (image / card / table) */}
+            <div className="h-40 bg-gray-200 rounded"></div>
+
+            {/* Button / action */}
+            <div className="h-10 bg-gray-200 rounded w-32"></div>
+
+        </div>
+    ) : (
+        <Outlet />
+    )
 
 }
 

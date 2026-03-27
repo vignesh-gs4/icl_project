@@ -35,7 +35,7 @@ connectDB().catch(err => {
 
 app.use("/auth/", authRoute);
 app.use("/courses", courseRoute);
-app.use("/admin/", adminRoute);
+// app.use("/admin/", adminRoute);
 
 app.use("/common", commonRoute);
 

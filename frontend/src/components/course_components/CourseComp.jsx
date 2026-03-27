@@ -4,6 +4,7 @@ import api from "../../api/api";
 
 const CourseComp = () => {
     const [courses, setCourses] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const getCourses = async () => {
