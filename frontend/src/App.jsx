@@ -15,6 +15,8 @@ import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./components/Unauthorized";
 import PersistLogin from "./components/PersistLogin"
 import RootLayout from "./layout/RootLayout";
+import AddCourse from "./components/admin/AddCourse";
+import CourseLayout from "./layout/CourseLayout";
 
 function App() {
   const ROLE_LIST = {
@@ -38,7 +40,10 @@ function App() {
           <Route path="/admin" element={<RequireAuth allowedRoles={[ROLE_LIST.Admin]} />}>
             <Route element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
-              <Route path="courses" element={<CourseList />} />
+              <Route path="courses" element={<CourseLayout />}>
+                <Route index element={<CourseList />} />
+                <Route path="add-course" element={<AddCourse />} />
+              </Route>
               <Route path="students" element={<StudentList />} />
             </Route>
           </Route>

@@ -43,6 +43,8 @@ const useAxiosPrivate = () => {
             privateApi.interceptors.response.eject(responseInterceptor)
         }
     }, [auth, refresh]);
+
+    return privateApi;
 }
 
 export default useAxiosPrivate;

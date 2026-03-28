@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CourseList = () => {
-  // Sample data - in a real app, this would come from an API or Props
+  const navigate = useNavigate();
+
   const courses = [
     { id: 1, name: "Python Full Stack Development", price: "15,000", duration: "6 Months", category: "Programming" },
     { id: 2, name: "Web Development (MERN Stack)", price: "12,500", duration: "4 Months", category: "Development" },
@@ -18,7 +20,7 @@ const CourseList = () => {
           <h2 className="text-2xl font-bold text-gray-800">Institute Courses</h2>
           <p className="text-gray-500 text-sm">Manage curriculum, pricing, and durations.</p>
         </div>
-        <button className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 transition shadow-sm font-medium">
+        <button onClick={() => navigate("add-course")} className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 transition shadow-sm font-medium">
           + Add New Course
         </button>
       </div>

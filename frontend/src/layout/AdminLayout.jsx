@@ -1,11 +1,16 @@
-import { Link, NavLink, Outlet } from "react-router-dom"
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom"
+import useLogout from "../hooks/useLogout"
 
 const AdminLayout = () => {
     const sidebarLinks = [
         { name: "Dashboard", path: "" },
         { name: "Course", path: "courses" },
-        { name: "Students", path: "students" }
+        { name: "Students", path: "students" },
     ]
+
+    const location = useLocation();
+
+    const logout = useLogout();
 
     return (
         <>
@@ -13,26 +18,36 @@ const AdminLayout = () => {
                 <Link to="/">Title</Link>
                 <div className="flex items-center gap-5 text-gray-500">
                     <p>Hi! Admin</p>
-                    <button className='border rounded-full text-sm px-4 py-1'>Logout</button>
+                    <button onClick={logout} className='border rounded-full text-sm px-4 py-1'>Logout</button>
                 </div>
             </div>
             <div className="flex">
                 <div className="md:w-64 w-16 border-r h-[550px] text-base border-gray-300 pt-4 flex flex-col transition-all duration-300">
-                    {sidebarLinks.map((item, index) => (
-                        <NavLink to={item.path} key={index} end
-                            className={({ isActive }) => {
-                                console.log("isActive : ", isActive);
+                    {sidebarLinks.map((item, index) => {
+                        const fullPath =
+                            item.path === "" ? "/admin" : `/admin/${item.path}`;
 
-                                return `flex items-center py-3 px-4 gap-3 
-                            ${ isActive ? "border-r-4 md:border-r-[6px] bg-indigo-500/10 border-indigo-500 text-indigo-500"
+                        const isDashboard = item.path === "";
+
+                        const isActive = isDashboard
+                            ? location.pathname === "/admin"
+                            : location.pathname.startsWith(fullPath);
+
+                        return (
+                            <NavLink
+                                to={item.path}
+                                key={index}
+                                className={`flex items-center py-3 px-4 gap-3 
+        ${isActive
+                                        ? "border-r-4 md:border-r-[6px] bg-indigo-500/10 border-indigo-500 text-indigo-500"
                                         : "hover:bg-gray-100/90 border-white text-gray-700"
-                                    }`
-                            }}
-                        >
-                            {item.icon}
-                            <p className="md:block hidden text-center">{item.name}</p>
-                        </NavLink>
-                    ))}
+                                    }`}
+                            >
+                                {item.icon}
+                                <p className="md:block hidden text-center">{item.name}</p>
+                            </NavLink>
+                        );
+                    })}
                 </div>
                 <Outlet />
             </div>

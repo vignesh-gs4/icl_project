@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SingleCourse from "./SingleCourse";
 import api from "../../api/api";
+import Skeleton from "../Skeleton";
 
 const CourseComp = () => {
     const [courses, setCourses] = useState([]);
@@ -11,6 +12,8 @@ const CourseComp = () => {
             try {
                 const { data } = await api.get("/courses");
                 setCourses(data);
+                setIsLoading(false);
+
             } catch (err) {
                 console.log("error : ", err.message);
             }
@@ -18,6 +21,10 @@ const CourseComp = () => {
 
         getCourses();
     }, []);
+
+    if (isLoading) {
+        return <Skeleton />
+    }
 
     return (
         <section className="max-w-7xl mx-auto px-4 py-12">

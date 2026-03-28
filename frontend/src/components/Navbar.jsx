@@ -1,10 +1,12 @@
 import { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import AppContext from "../context/appContext";
+import useLogout from "../hooks/useLogout";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { setShowAuthenticate, setAuthType, auth } = useContext(AppContext);
+  const logout = useLogout();
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
@@ -38,7 +40,7 @@ const Navbar = () => {
 
           {auth?.accessToken ? (
             <li>
-              <div className="px-1 rounded-lg text-white font-semibold bg-red-500">
+              <div onClick={logout} className="px-1 rounded-lg text-white font-semibold bg-red-500">
                 Logout
               </div>
             </li>
@@ -107,6 +109,7 @@ const Navbar = () => {
           ) : (
             <div>
               <button
+                onClick={logout}
                 className="text-white p-[5px] bg-red-500 rounded-lg font-semibold"
               >
                 Logout

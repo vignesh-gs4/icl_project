@@ -12,9 +12,10 @@ const logout = async (req, res, next) => {
             httpOnly: true,
             sameSite: "strict"
         });
+        console.log("request occurred here");
 
         return res
-            .status(204)
+            .status(200)
             .json({ message: "Logged out successfully" });
     } catch (err) {
         next(err);
