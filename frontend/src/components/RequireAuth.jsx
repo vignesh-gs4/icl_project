@@ -3,6 +3,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 import useAppContext from '../hooks/useAppContext'
 import useRefreshToken from '../hooks/useRefreshToken';
 import { useState } from 'react';
+import Skeleton from './Skeleton';
 
 const RequireAuth = ({ allowedRoles }) => {
     const { auth } = useAppContext();
@@ -36,7 +37,7 @@ const RequireAuth = ({ allowedRoles }) => {
     console.log(allowedRoles);
 
     return (
-       isLoading ? <p>Page is loading</p> : auth?.roles?.find(role => allowedRoles.includes(role)) ? <Outlet />
+       isLoading ? <Skeleton /> : auth?.roles?.find(role => allowedRoles.includes(role)) ? <Outlet />
             : auth?.accessToken
                 ? <Navigate to="/unauthorized" />
                 : <Navigate to="/" />

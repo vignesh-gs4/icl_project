@@ -17,6 +17,7 @@ import PersistLogin from "./components/PersistLogin"
 import RootLayout from "./layout/RootLayout";
 import AddCourse from "./components/admin/AddCourse";
 import CourseLayout from "./layout/CourseLayout";
+import CourseRegister from "./pages/CourseRegister";
 
 function App() {
   const ROLE_LIST = {
@@ -29,15 +30,16 @@ function App() {
       <Route element={<PersistLogin />}>
         <Route element={<RootLayout />}>
 
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/course" element={<Course />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route element={<RequireAuth allowedRoles={[ROLE_LIST.User]} />}>
-            <Route path="/course-detail/:courseId" element={<CourseDetail />} />
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="course" element={<Course />} />
+          <Route path="unauthorized" element={<Unauthorized />} />
+          <Route element={<RequireAuth allowedRoles={[ROLE_LIST.User, ROLE_LIST.Admin]} />}>
+            <Route path="course-detail/:courseId" element={<CourseDetail />} />
+            <Route path="course-register" element={<CourseRegister />} />
           </Route>
-          <Route path="/admin" element={<RequireAuth allowedRoles={[ROLE_LIST.Admin]} />}>
+          <Route path="admin" element={<RequireAuth allowedRoles={[ROLE_LIST.Admin]} />}>
             <Route element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="courses" element={<CourseLayout />}>
@@ -47,8 +49,8 @@ function App() {
               <Route path="students" element={<StudentList />} />
             </Route>
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Route>
-        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CourseDetailComp from "../components/course_components/CourseDetailComp";
+import { useNavigate, useParams } from "react-router-dom";
+import useAxiosPrivate from "../hooks/useAxiosPrivate"
 
 const CourseDetail = () => {
+  const navigate = useNavigate();
+  const { courseId } = useParams();
+  const privateApi = useAxiosPrivate();
+
+  console.log("courseId : ", courseId);
+
+  useEffect(() => {
+    const fetchCourseDetail = async () => {
+      try {
+        const { data } = await privateApi("/courses/" + courseId);
+        console.log(data);
+      } catch(err) {
+        console.log("error while fetching course details : ", err.message);
+      }
+    };
+
+    fetchCourseDetail();
+  }, []);
+
   return (
     <section className="py-14 bg-gradient-to-b from-slate-50 to-slate-100">
       
@@ -35,8 +56,6 @@ const CourseDetail = () => {
               {/* Info */}
               <div className="flex flex-wrap gap-6 mt-6 text-sm text-slate-600">
                 <p>⏱ Duration: <span className="font-medium">60 Days</span></p>
-                <p>👨‍🎓 Level: <span className="font-medium">Beginner</span></p>
-                <p>🌐 Mode: <span className="font-medium">Online</span></p>
               </div>
             </div>
 
@@ -48,7 +67,7 @@ const CourseDetail = () => {
                 <p className="text-3xl font-bold text-indigo-600">₹999</p>
               </div>
 
-              <button className="px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition duration-300">
+              <button onClick={() => navigate("/course-register")} className="px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition duration-300">
                 Start Course 🚀
               </button>
             </div>

@@ -9,6 +9,7 @@ import upload from "../config/multerConfig.js"
 const route = Router();
 
 route.get("/", getCourse);
+
 route.get(
     "/:courseId",
     verifyJWT,

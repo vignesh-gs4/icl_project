@@ -1,26 +1,18 @@
-import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import React from 'react'
 
 const CourseDetailComp = () => {
-  const { courseId } = useParams();
-
-  console.log(courseId);
-
-  useEffect(() => {
-    
-  }, []);
 
   return (
     <section className='px-4 lg:px-24 my-10'>
-      <h2 className='font-bold text-gray-500'>COURSE OUTLINE</h2>
+      <h2 className='font-bold text-gray-500'>COURSE SYLLABUS</h2>
       <div className='flex gap-5 items-center flex-wrap'>
         <div className='lesson-outlines min-w-[350px] flex-1'>
-          <h2>Lesson 1 <span>time</span></h2>
-          <h2>Lesson 1 <span>time</span></h2>
-          <h2>Lesson 1 <span>time</span></h2>
-          <h2>Lesson 1 <span>time</span></h2>
-          <h2>Lesson 1 <span>time</span></h2>
-          <h2>Lesson 1 <span>time</span></h2>
+          <h2>Lesson 1</h2>
+          <h2>Lesson 1</h2>
+          <h2>Lesson 1</h2>
+          <h2>Lesson 1</h2>
+          <h2>Lesson 1</h2>
+          <h2>Lesson 1</h2>
         </div>
         <div className='flex-1 min-w-[350px]'>
           <h1>instructor</h1>

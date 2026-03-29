@@ -5,10 +5,10 @@ import mongoose from "mongoose";
 
 export const getCourse = async (req, res, next) => {
     try {
-        const course = await Course.find({});
+        const courses = await Course.find({});
         return res
             .status(200)
-            .json(course);
+            .json(courses);
     } catch (err) {
         next(err);
     }

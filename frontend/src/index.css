@@ -7,13 +7,16 @@
 @layer base {}
 
 @layer utilities {
-  .input {
-    @apply p-2 border border-gray-300 flex-1
+
+  .course-input, .register-input {
+    @apply shadow-lg p-2 text-center border border-gray-300
+    rounded-md
   }
 
-  .input:focus {
+  .course-input:focus, .register-input:focus {
     @apply outline outline-blue-500
   }
+
 }
 
 @layer components {
