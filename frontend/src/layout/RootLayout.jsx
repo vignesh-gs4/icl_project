@@ -8,7 +8,8 @@ import { Toaster } from "react-hot-toast";
 const RootLayout = () => {
     const { showAuthenticate } = useAppContext();
     const location = useLocation();
-    const isAdminPath = location.pathname === "admin";
+    const isAdminPath = location.pathname === "/admin";
+    console.log("admin path : ", location.pathname);
 
     console.log("isAdminPath : ", isAdminPath);
 
