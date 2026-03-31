@@ -1,5 +1,5 @@
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom"
-import useLogout from "../hooks/useLogout"
+import useLogout from "../../hooks/useLogout"
 
 const AdminLayout = () => {
     const sidebarLinks = [

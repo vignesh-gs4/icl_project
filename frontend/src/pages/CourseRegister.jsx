@@ -14,6 +14,9 @@ const CourseRegister = () => {
                         className='register-input'
                     />
                 </div>
+                <div>
+                    
+                </div>
             </form>
         </div>
     )

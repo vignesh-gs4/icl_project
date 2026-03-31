@@ -6,7 +6,7 @@ import Course from "./pages/Course";
 import Home from "./pages/Home";
 import NotFound from "./components/NotFound";
 import CourseDetail from "./pages/CourseDetail";
-import AdminLayout from "./layout/AdminLayout";
+import AdminLayout from "./layout/adminLayout/AdminLayout";
 import CourseList from "./components/admin/CourseList";
 import StudentList from "./components/admin/StudentList";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -16,7 +16,7 @@ import Unauthorized from "./components/Unauthorized";
 import PersistLogin from "./components/PersistLogin"
 import RootLayout from "./layout/RootLayout";
 import AddCourse from "./components/admin/AddCourse";
-import CourseLayout from "./layout/CourseLayout";
+import CourseLayout from "./layout/adminLayout/CourseLayout";
 import CourseRegister from "./pages/CourseRegister";
 
 function App() {

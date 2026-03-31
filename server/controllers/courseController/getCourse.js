@@ -1,7 +1,6 @@
 import AppError from "../../utils/AppError.js";
 import { Course } from "../../models/Course.js"
 import { Lesson } from "../../models/Lessons.js"
-import mongoose from "mongoose";
 
 export const getCourse = async (req, res, next) => {
     try {
@@ -17,19 +16,32 @@ export const getCourse = async (req, res, next) => {
 export const getCourseInfo = async (req, res, next) => {
     try {
         const courseId = req.params?.courseId
+       
         console.log(courseId);
 
         if (!courseId) {
             throw new AppError("course id required", 400);
         }
 
-        const courseInfo = await Lesson.find({ courseId }).populate("courseId");
-
-        console.log("courseInfo : ", courseInfo);
+        const {
+            courseId: { courseName, courseImageUrl, description },
+            fees,
+            duration,
+            syllabus: lessons
+        } = await Lesson.findOne({ courseId }).populate("courseId")
 
         return res
             .status(200)
-            .json(courseInfo);
+            .json({
+                courseDetail: {
+                    courseName,
+                    fees,
+                    description,
+                    courseImageUrl,
+                    duration
+                },
+                lessons
+            });
 
     } catch (err) {
         next(err);
