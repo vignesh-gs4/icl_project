@@ -11,10 +11,13 @@ const CourseComp = () => {
         const getCourses = async () => {
             try {
                 const { data } = await api.get("/courses");
+                console.log("courses : ", data);
                 setCourses(data);
                 setIsLoading(false);
             } catch (err) {
                 console.log("error : ", err.message);
+            } finally {
+                setIsLoading(false);
             }
         }
 
@@ -28,7 +31,7 @@ const CourseComp = () => {
     return (
         <section className="max-w-7xl mx-auto px-4 py-12">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                {courses.map(course => (
+                {courses?.map(course => (
                     <div key={course._id} className="flex justify-center">
                         <SingleCourse courseImageUrl={course.courseImageUrl} title={course.title} description={course.description} courseId={course._id} />
                     </div>

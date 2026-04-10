@@ -8,8 +8,8 @@ redisClient.on("connect", () => {
     console.log("redis client connecting");
 })
 
-redisClient.on("error", () => {
-    console.log("error connecting with redis client");
+redisClient.on("error", (error) => {
+    console.log("error connecting with redis client", error);
 })
 
 try {
@@ -20,3 +20,5 @@ try {
 }
 
 export default redisClient;
+
+// import 
