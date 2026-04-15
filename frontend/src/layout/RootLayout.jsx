@@ -9,9 +9,10 @@ const RootLayout = () => {
     const { showAuthenticate } = useAppContext();
     const location = useLocation();
     const isAdminPath = location.pathname.includes("/admin");
-    console.log("admin path : ", location.pathname);
+    
+    // console.log("admin path : ", location.pathname);
 
-    console.log("isAdminPath : ", isAdminPath);
+    // console.log("isAdminPath : ", isAdminPath);
 
 
     return (

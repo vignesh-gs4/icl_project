@@ -9,6 +9,8 @@ const PersistLogin = () => {
     const refresh = useRefreshToken();
     const { auth } = useAppContext();
 
+    console.log("persist login auth : ", auth);
+
     useEffect(() => {
         let isMounted = true;
 
