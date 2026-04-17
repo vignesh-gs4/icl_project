@@ -3,6 +3,8 @@ import api from "../api/api.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import EyeIcon from "../assets/icons/eyeIcon.jsx";
+import CloseEyeIcon from "../assets/icons/CloseEyeIcon.jsx";
 
 const Authenticate = () => {
   const {
@@ -11,7 +13,7 @@ const Authenticate = () => {
     setAuthType,
     setAuth
   } = useAppContext();
-
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -64,7 +66,7 @@ const Authenticate = () => {
         {
           authType === "signup" &&
           <input
-            id="email"
+            id="name"
             className="w-full border mt-1 bg-indigo-500/5 mb-2 border-gray-500/10
             outline-none rounded py-2.5 px-3"
             type="text"
@@ -86,7 +88,7 @@ const Authenticate = () => {
         />
 
         <input
-          id="email"
+          id="password"
           className="w-full border mt-1 bg-indigo-500/5 mb-7 border-gray-500/10
           outline-none rounded py-2.5 px-3"
           type="password"
