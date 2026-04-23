@@ -3,8 +3,7 @@ import api from "../api/api.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import EyeIcon from "../assets/icons/eyeIcon.jsx";
-import CloseEyeIcon from "../assets/icons/CloseEyeIcon.jsx";
+import { Eye, EyeOff } from "lucide-react";
 
 const Authenticate = () => {
   const {
@@ -87,16 +86,31 @@ const Authenticate = () => {
           required
         />
 
-        <input
-          id="password"
-          className="w-full border mt-1 bg-indigo-500/5 mb-7 border-gray-500/10
+        <div className="relative">
+          <input
+            id="password"
+            className="w-full border mt-1 bg-indigo-500/5 mb-7 border-gray-500/10
           outline-none rounded py-2.5 px-3"
-          type="password"
-          placeholder="Password"
-          required
-          onChange={e => setPassword(e.target.value)}
-          value={password}
-        />
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            required
+            onChange={e => setPassword(e.target.value)}
+            value={password}
+          />
+          <button
+            type="button"
+            className="cursor-pointer absolute top-4 right-4"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {
+              showPassword ? (
+                <Eye size={16} />
+              ): (
+                <EyeOff size={16} />
+              )
+            }
+          </button>
+        </div>
 
         <button
           className="w-full mb-3 bg-indigo-500 hover:bg-indigo-600
